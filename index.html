@@ -3,11 +3,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Slot Game</title>
+  <title>Slot Game Enhanced</title>
   <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-    .reels { font-size: 50px; margin: 20px; }
-    button { padding: 10px 20px; font-size: 20px; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f0f8ff;
+    }
+    .reels {
+      font-size: 60px;
+      margin: 30px;
+      transition: transform 0.3s ease;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 22px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .jackpot {
+      animation: flash 0.8s infinite;
+    }
+    @keyframes flash {
+      0% { color: red; }
+      50% { color: gold; }
+      100% { color: red; }
+    }
   </style>
 </head>
 <body>
@@ -15,16 +44,32 @@
   <div class="reels" id="reels">🍒 🍋 🍊</div>
   <button onclick="spin()">Spin!</button>
 
+  <audio id="spinSound" src="https://www.soundjay.com/button/button-3.mp3"></audio>
+  <audio id="jackpotSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"></audio>
+
   <script>
     const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '💎'];
+    const reelsEl = document.getElementById('reels');
+    const spinSound = document.getElementById('spinSound');
+    const jackpotSound = document.getElementById('jackpotSound');
+
     function spin() {
+      spinSound.play();
+      reelsEl.classList.remove('jackpot');
+      reelsEl.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        reelsEl.style.transform = 'scale(1)';
+      }, 300);
+
       const result = [];
       for (let i = 0; i < 3; i++) {
         result.push(symbols[Math.floor(Math.random() * symbols.length)]);
       }
-      document.getElementById('reels').textContent = result.join(' ');
+      reelsEl.textContent = result.join(' ');
       if (result[0] === result[1] && result[1] === result[2]) {
-        alert('🎉 JACKPOT!');
+        reelsEl.classList.add('jackpot');
+        jackpotSound.play();
+        setTimeout(() => alert('🎉 JACKPOT!'), 100);
       }
     }
   </script>
