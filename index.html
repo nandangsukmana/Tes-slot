@@ -3,42 +3,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Slot Game with Start Screen</title>
+  <title>Slot Game Login</title>
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
+      background-color: #eef2f3;
       margin: 0;
-      background-color: #f0f8ff;
+      text-align: center;
     }
-    #start-screen, #game-screen {
+    .screen {
       display: none;
       padding-top: 100px;
     }
-    #start-screen {
+    #login-screen, #register-screen {
       display: block;
     }
     h1 {
-      font-size: 48px;
-      margin-bottom: 20px;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
     }
     .reels {
       font-size: 60px;
       margin: 30px;
       transition: transform 0.3s ease;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 22px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #45a049;
     }
     .jackpot {
       animation: flash 0.8s infinite;
@@ -51,13 +57,27 @@
   </style>
 </head>
 <body>
-  <div id="start-screen">
-    <h1>🎰 Welcome to Slot Game</h1>
-    <p>Click below to start playing!</p>
-    <button onclick="startGame()">Start Game</button>
+
+  <!-- Login Screen -->
+  <div id="login-screen" class="screen">
+    <h1>🔐 Login</h1>
+    <input type="text" id="login-username" placeholder="Username"><br>
+    <input type="password" id="login-password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+    <button onclick="showRegister()">Daftar</button>
   </div>
 
-  <div id="game-screen">
+  <!-- Register Screen -->
+  <div id="register-screen" class="screen" style="display:none;">
+    <h1>📝 Daftar</h1>
+    <input type="text" id="reg-username" placeholder="Username"><br>
+    <input type="password" id="reg-password" placeholder="Password"><br>
+    <button onclick="register()">Daftar</button>
+    <button onclick="showLogin()">Kembali</button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="game-screen" class="screen" style="display:none;">
     <h1>🎰 Slot Game</h1>
     <div class="reels" id="reels">🍒 🍋 🍊</div>
     <button onclick="spin()">Spin!</button>
@@ -67,15 +87,42 @@
   <audio id="jackpotSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"></audio>
 
   <script>
+    function showRegister() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('register-screen').style.display = 'block';
+    }
+
+    function showLogin() {
+      document.getElementById('register-screen').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'block';
+    }
+
+    function login() {
+      const user = document.getElementById('login-username').value;
+      const pass = document.getElementById('login-password').value;
+      if (user && pass) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('game-screen').style.display = 'block';
+      } else {
+        alert('Masukkan username dan password!');
+      }
+    }
+
+    function register() {
+      const user = document.getElementById('reg-username').value;
+      const pass = document.getElementById('reg-password').value;
+      if (user && pass) {
+        alert('Pendaftaran berhasil! Silakan login.');
+        showLogin();
+      } else {
+        alert('Masukkan data yang lengkap!');
+      }
+    }
+
     const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '💎'];
     const reelsEl = document.getElementById('reels');
     const spinSound = document.getElementById('spinSound');
     const jackpotSound = document.getElementById('jackpotSound');
-
-    function startGame() {
-      document.getElementById('start-screen').style.display = 'none';
-      document.getElementById('game-screen').style.display = 'block';
-    }
 
     function spin() {
       spinSound.play();
