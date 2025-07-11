@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot Game</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    .reels { font-size: 50px; margin: 20px; }
+    button { padding: 10px 20px; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <h1>🎰 Slot Game</h1>
+  <div class="reels" id="reels">🍒 🍋 🍊</div>
+  <button onclick="spin()">Spin!</button>
+
+  <script>
+    const symbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '💎'];
+    function spin() {
+      const result = [];
+      for (let i = 0; i < 3; i++) {
+        result.push(symbols[Math.floor(Math.random() * symbols.length)]);
+      }
+      document.getElementById('reels').textContent = result.join(' ');
+      if (result[0] === result[1] && result[1] === result[2]) {
+        alert('🎉 JACKPOT!');
+      }
+    }
+  </script>
+</body>
+</html>
