@@ -3,13 +3,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Slot Game Enhanced</title>
+  <title>Slot Game with Start Screen</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      margin-top: 50px;
+      margin: 0;
       background-color: #f0f8ff;
+    }
+    #start-screen, #game-screen {
+      display: none;
+      padding-top: 100px;
+    }
+    #start-screen {
+      display: block;
+    }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
     }
     .reels {
       font-size: 60px;
@@ -40,9 +51,17 @@
   </style>
 </head>
 <body>
-  <h1>🎰 Slot Game</h1>
-  <div class="reels" id="reels">🍒 🍋 🍊</div>
-  <button onclick="spin()">Spin!</button>
+  <div id="start-screen">
+    <h1>🎰 Welcome to Slot Game</h1>
+    <p>Click below to start playing!</p>
+    <button onclick="startGame()">Start Game</button>
+  </div>
+
+  <div id="game-screen">
+    <h1>🎰 Slot Game</h1>
+    <div class="reels" id="reels">🍒 🍋 🍊</div>
+    <button onclick="spin()">Spin!</button>
+  </div>
 
   <audio id="spinSound" src="https://www.soundjay.com/button/button-3.mp3"></audio>
   <audio id="jackpotSound" src="https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"></audio>
@@ -52,6 +71,11 @@
     const reelsEl = document.getElementById('reels');
     const spinSound = document.getElementById('spinSound');
     const jackpotSound = document.getElementById('jackpotSound');
+
+    function startGame() {
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('game-screen').style.display = 'block';
+    }
 
     function spin() {
       spinSound.play();
