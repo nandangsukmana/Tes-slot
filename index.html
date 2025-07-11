@@ -7,8 +7,10 @@
   <style>
     body {
       font-family: sans-serif;
-      background-color: #eef2f3;
       margin: 0;
+      background: url('https://images.unsplash.com/photo-1549921296-3a6b20316b59?auto=format&fit=crop&w=1280&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
       text-align: center;
     }
     .screen {
@@ -17,6 +19,12 @@
     }
     #login-screen, #register-screen {
       display: block;
+    }
+    .form-box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
     }
     h1 {
       font-size: 36px;
@@ -27,6 +35,8 @@
       margin: 10px;
       width: 250px;
       font-size: 16px;
+      border: none;
+      border-radius: 4px;
     }
     button {
       padding: 10px 20px;
@@ -60,20 +70,24 @@
 
   <!-- Login Screen -->
   <div id="login-screen" class="screen">
-    <h1>🔐 Login</h1>
-    <input type="text" id="login-username" placeholder="Username"><br>
-    <input type="password" id="login-password" placeholder="Password"><br>
-    <button onclick="login()">Login</button>
-    <button onclick="showRegister()">Daftar</button>
+    <div class="form-box">
+      <h1>🔐 Login</h1>
+      <input type="text" id="login-username" placeholder="Nomor HP atau Email"><br>
+      <input type="password" id="login-password" placeholder="Password"><br>
+      <button onclick="login()">Login</button>
+      <button onclick="showRegister()">Daftar</button>
+    </div>
   </div>
 
   <!-- Register Screen -->
   <div id="register-screen" class="screen" style="display:none;">
-    <h1>📝 Daftar</h1>
-    <input type="text" id="reg-username" placeholder="Username"><br>
-    <input type="password" id="reg-password" placeholder="Password"><br>
-    <button onclick="register()">Daftar</button>
-    <button onclick="showLogin()">Kembali</button>
+    <div class="form-box">
+      <h1>📝 Daftar</h1>
+      <input type="text" id="reg-username" placeholder="Nomor HP atau Email"><br>
+      <input type="password" id="reg-password" placeholder="Password"><br>
+      <button onclick="register()">Daftar</button>
+      <button onclick="showLogin()">Kembali</button>
+    </div>
   </div>
 
   <!-- Game Screen -->
@@ -104,7 +118,7 @@
         document.getElementById('login-screen').style.display = 'none';
         document.getElementById('game-screen').style.display = 'block';
       } else {
-        alert('Masukkan username dan password!');
+        alert('Masukkan nomor/email dan password!');
       }
     }
 
